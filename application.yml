@@ -1,0 +1,52 @@
+#通过spring-cloud-netflix-eureka-server-2.2.2.RELEASE.jar\META-INF\spring-configuration-metadata.json查看更多server配置
+#通过spring-cloud-netflix-eureka-client-2.2.2.RELEASE.jar\META-INF\spring-configuration-metadata.json查看更多client配置
+
+server:
+  port: 28000
+
+spring:
+  application:
+    name: eureka-server
+#    cloud:
+#      #多网卡选择ip配置，https://www.cnblogs.com/EasonJim/p/8434644.html
+#      inetutils:
+#        preferred-networks: 2.0
+
+logging:
+  config: classpath:logback.xml
+
+eureka:
+  #服务实例类配置,EurekaInstanceConfigBean
+  instance:
+    hostname: localhost
+    #定义服务续约任务（心跳）的调用间隔，单位：秒
+    lease-renewal-interval-in-seconds: 5
+    #定义服务失效的时间，单位：秒
+    lease-expiration-duration-in-seconds: 10
+    #注册ip地址
+    prefer-ip-address: true
+    #注册实例id
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+  #服务注册中心配置,EurekaServerConfigBean
+  server:
+    #关闭注册中心的保护机制，Eureka会统计15分钟之内心跳失败的比例低于85%将会触发保护机制，不剔除服务提供者，如果关闭服务注册中心将不可用的实例正确剔除
+    enable-self-preservation: false
+    #主动失效检测间隔，5秒
+    eviction-interval-timer-in-ms: 5000
+    #禁用readOnlyCacheMap，readWriteCacheMap同步数据到readOnlyCacheMap，默认30秒，为了达到实时同步，
+    #可以选择禁用readOnlyCacheMap，但是这样会牺牲一定的性能。eureka server 在对readWriteCacheMap 进行操作时，需要加锁
+    use-read-only-response-cache: false
+  #服务注册类配置,EurekaClientConfigBean
+  client:
+    #从Eureka服务器端获取注册信息的间隔时间，单位：秒
+    registry-fetch-interval-seconds: 5
+    #启动服务注册,默认true
+    register-with-eureka: false
+    #检索服务,默认true
+    fetch-registry: false
+    service-url:
+      #这里只能是defaultZone不能是default-zone
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+
+
