@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.kanke.store.IDao.OrderProductMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.kanke.store.domain.OrderProduct" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="merchant_id" property="merchantId" jdbcType="VARCHAR" />
+    <result column="merchant_name" property="merchantName" jdbcType="VARCHAR" />
+    <result column="pro_id" property="proId" jdbcType="VARCHAR" />
+    <result column="logo_url" property="logoUrl" jdbcType="VARCHAR" />
+    <result column="short_title" property="shortTitle" jdbcType="VARCHAR" />
+    <result column="long_title" property="longTitle" jdbcType="VARCHAR" />
+    <result column="pro_desc" property="proDesc" jdbcType="VARCHAR" />
+    <result column="norm_content" property="normContent" jdbcType="VARCHAR" />
+    <result column="norm_key_value" property="normKeyValue" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_update_id" property="lastUpdateId" jdbcType="VARCHAR" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="must_need_price" property="mustNeedPrice" jdbcType="INTEGER" />
+    <result column="loos_pin_money" property="loosPinMoney" jdbcType="DECIMAL" />
+    <result column="must_need_money" property="mustNeedMoney" jdbcType="INTEGER" />
+    <result column="total_goldcoin" property="totalGoldcoin" jdbcType="DECIMAL" />
+    <result column="must_need_goldcoin" property="mustNeedGoldcoin" jdbcType="INTEGER" />
+    <result column="charity_coin" property="charityCoin" jdbcType="DECIMAL" />
+    <result column="must_need_coin" property="mustNeedCoin" jdbcType="INTEGER" />
+    <result column="post_price" property="postPrice" jdbcType="DECIMAL" />
+    <result column="buy_count" property="buyCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_no, merchant_id, merchant_name, pro_id, logo_url, short_title, long_title, 
+    pro_desc, norm_content, norm_key_value, creator, create_time, last_update_id, last_update_time, 
+    price, must_need_price, loos_pin_money, must_need_money, total_goldcoin, must_need_goldcoin, 
+    charity_coin, must_need_coin, post_price, buy_count
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.kanke.store.domain.OrderProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ks_order_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ks_order_product
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ks_order_product
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.kanke.store.domain.OrderProductExample" >
+    delete from ks_order_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.kanke.store.domain.OrderProduct" >
+    insert into ks_order_product (id, order_no, merchant_id, 
+      merchant_name, pro_id, logo_url, 
+      short_title, long_title, pro_desc, 
+      norm_content, norm_key_value, creator, 
+      create_time, last_update_id, last_update_time, 
+      price, must_need_price, loos_pin_money, 
+      must_need_money, total_goldcoin, must_need_goldcoin, 
+      charity_coin, must_need_coin, post_price, 
+      buy_count)
+    values (#{id,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{merchantId,jdbcType=VARCHAR}, 
+      #{merchantName,jdbcType=VARCHAR}, #{proId,jdbcType=VARCHAR}, #{logoUrl,jdbcType=VARCHAR}, 
+      #{shortTitle,jdbcType=VARCHAR}, #{longTitle,jdbcType=VARCHAR}, #{proDesc,jdbcType=VARCHAR}, 
+      #{normContent,jdbcType=VARCHAR}, #{normKeyValue,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateId,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{price,jdbcType=DECIMAL}, #{mustNeedPrice,jdbcType=INTEGER}, #{loosPinMoney,jdbcType=DECIMAL}, 
+      #{mustNeedMoney,jdbcType=INTEGER}, #{totalGoldcoin,jdbcType=DECIMAL}, #{mustNeedGoldcoin,jdbcType=INTEGER}, 
+      #{charityCoin,jdbcType=DECIMAL}, #{mustNeedCoin,jdbcType=INTEGER}, #{postPrice,jdbcType=DECIMAL}, 
+      #{buyCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.kanke.store.domain.OrderProduct" >
+    insert into ks_order_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="merchantId != null" >
+        merchant_id,
+      </if>
+      <if test="merchantName != null" >
+        merchant_name,
+      </if>
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="logoUrl != null" >
+        logo_url,
+      </if>
+      <if test="shortTitle != null" >
+        short_title,
+      </if>
+      <if test="longTitle != null" >
+        long_title,
+      </if>
+      <if test="proDesc != null" >
+        pro_desc,
+      </if>
+      <if test="normContent != null" >
+        norm_content,
+      </if>
+      <if test="normKeyValue != null" >
+        norm_key_value,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUpdateId != null" >
+        last_update_id,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="mustNeedPrice != null" >
+        must_need_price,
+      </if>
+      <if test="loosPinMoney != null" >
+        loos_pin_money,
+      </if>
+      <if test="mustNeedMoney != null" >
+        must_need_money,
+      </if>
+      <if test="totalGoldcoin != null" >
+        total_goldcoin,
+      </if>
+      <if test="mustNeedGoldcoin != null" >
+        must_need_goldcoin,
+      </if>
+      <if test="charityCoin != null" >
+        charity_coin,
+      </if>
+      <if test="mustNeedCoin != null" >
+        must_need_coin,
+      </if>
+      <if test="postPrice != null" >
+        post_price,
+      </if>
+      <if test="buyCount != null" >
+        buy_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantName != null" >
+        #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=VARCHAR},
+      </if>
+      <if test="logoUrl != null" >
+        #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shortTitle != null" >
+        #{shortTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="longTitle != null" >
+        #{longTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="proDesc != null" >
+        #{proDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="normContent != null" >
+        #{normContent,jdbcType=VARCHAR},
+      </if>
+      <if test="normKeyValue != null" >
+        #{normKeyValue,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateId != null" >
+        #{lastUpdateId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="mustNeedPrice != null" >
+        #{mustNeedPrice,jdbcType=INTEGER},
+      </if>
+      <if test="loosPinMoney != null" >
+        #{loosPinMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="mustNeedMoney != null" >
+        #{mustNeedMoney,jdbcType=INTEGER},
+      </if>
+      <if test="totalGoldcoin != null" >
+        #{totalGoldcoin,jdbcType=DECIMAL},
+      </if>
+      <if test="mustNeedGoldcoin != null" >
+        #{mustNeedGoldcoin,jdbcType=INTEGER},
+      </if>
+      <if test="charityCoin != null" >
+        #{charityCoin,jdbcType=DECIMAL},
+      </if>
+      <if test="mustNeedCoin != null" >
+        #{mustNeedCoin,jdbcType=INTEGER},
+      </if>
+      <if test="postPrice != null" >
+        #{postPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="buyCount != null" >
+        #{buyCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.kanke.store.domain.OrderProductExample" resultType="java.lang.Integer" >
+    select count(*) from ks_order_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ks_order_product
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null" >
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchantId != null" >
+        merchant_id = #{record.merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchantName != null" >
+        merchant_name = #{record.merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proId != null" >
+        pro_id = #{record.proId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logoUrl != null" >
+        logo_url = #{record.logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shortTitle != null" >
+        short_title = #{record.shortTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longTitle != null" >
+        long_title = #{record.longTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proDesc != null" >
+        pro_desc = #{record.proDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.normContent != null" >
+        norm_content = #{record.normContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.normKeyValue != null" >
+        norm_key_value = #{record.normKeyValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateId != null" >
+        last_update_id = #{record.lastUpdateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null" >
+        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mustNeedPrice != null" >
+        must_need_price = #{record.mustNeedPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.loosPinMoney != null" >
+        loos_pin_money = #{record.loosPinMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mustNeedMoney != null" >
+        must_need_money = #{record.mustNeedMoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalGoldcoin != null" >
+        total_goldcoin = #{record.totalGoldcoin,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mustNeedGoldcoin != null" >
+        must_need_goldcoin = #{record.mustNeedGoldcoin,jdbcType=INTEGER},
+      </if>
+      <if test="record.charityCoin != null" >
+        charity_coin = #{record.charityCoin,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mustNeedCoin != null" >
+        must_need_coin = #{record.mustNeedCoin,jdbcType=INTEGER},
+      </if>
+      <if test="record.postPrice != null" >
+        post_price = #{record.postPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.buyCount != null" >
+        buy_count = #{record.buyCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ks_order_product
+    set id = #{record.id,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      merchant_id = #{record.merchantId,jdbcType=VARCHAR},
+      merchant_name = #{record.merchantName,jdbcType=VARCHAR},
+      pro_id = #{record.proId,jdbcType=VARCHAR},
+      logo_url = #{record.logoUrl,jdbcType=VARCHAR},
+      short_title = #{record.shortTitle,jdbcType=VARCHAR},
+      long_title = #{record.longTitle,jdbcType=VARCHAR},
+      pro_desc = #{record.proDesc,jdbcType=VARCHAR},
+      norm_content = #{record.normContent,jdbcType=VARCHAR},
+      norm_key_value = #{record.normKeyValue,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      last_update_id = #{record.lastUpdateId,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      price = #{record.price,jdbcType=DECIMAL},
+      must_need_price = #{record.mustNeedPrice,jdbcType=INTEGER},
+      loos_pin_money = #{record.loosPinMoney,jdbcType=DECIMAL},
+      must_need_money = #{record.mustNeedMoney,jdbcType=INTEGER},
+      total_goldcoin = #{record.totalGoldcoin,jdbcType=DECIMAL},
+      must_need_goldcoin = #{record.mustNeedGoldcoin,jdbcType=INTEGER},
+      charity_coin = #{record.charityCoin,jdbcType=DECIMAL},
+      must_need_coin = #{record.mustNeedCoin,jdbcType=INTEGER},
+      post_price = #{record.postPrice,jdbcType=DECIMAL},
+      buy_count = #{record.buyCount,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.kanke.store.domain.OrderProduct" >
+    update ks_order_product
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null" >
+        merchant_id = #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantName != null" >
+        merchant_name = #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null" >
+        pro_id = #{proId,jdbcType=VARCHAR},
+      </if>
+      <if test="logoUrl != null" >
+        logo_url = #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shortTitle != null" >
+        short_title = #{shortTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="longTitle != null" >
+        long_title = #{longTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="proDesc != null" >
+        pro_desc = #{proDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="normContent != null" >
+        norm_content = #{normContent,jdbcType=VARCHAR},
+      </if>
+      <if test="normKeyValue != null" >
+        norm_key_value = #{normKeyValue,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateId != null" >
+        last_update_id = #{lastUpdateId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="mustNeedPrice != null" >
+        must_need_price = #{mustNeedPrice,jdbcType=INTEGER},
+      </if>
+      <if test="loosPinMoney != null" >
+        loos_pin_money = #{loosPinMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="mustNeedMoney != null" >
+        must_need_money = #{mustNeedMoney,jdbcType=INTEGER},
+      </if>
+      <if test="totalGoldcoin != null" >
+        total_goldcoin = #{totalGoldcoin,jdbcType=DECIMAL},
+      </if>
+      <if test="mustNeedGoldcoin != null" >
+        must_need_goldcoin = #{mustNeedGoldcoin,jdbcType=INTEGER},
+      </if>
+      <if test="charityCoin != null" >
+        charity_coin = #{charityCoin,jdbcType=DECIMAL},
+      </if>
+      <if test="mustNeedCoin != null" >
+        must_need_coin = #{mustNeedCoin,jdbcType=INTEGER},
+      </if>
+      <if test="postPrice != null" >
+        post_price = #{postPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="buyCount != null" >
+        buy_count = #{buyCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.kanke.store.domain.OrderProduct" >
+    update ks_order_product
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      merchant_id = #{merchantId,jdbcType=VARCHAR},
+      merchant_name = #{merchantName,jdbcType=VARCHAR},
+      pro_id = #{proId,jdbcType=VARCHAR},
+      logo_url = #{logoUrl,jdbcType=VARCHAR},
+      short_title = #{shortTitle,jdbcType=VARCHAR},
+      long_title = #{longTitle,jdbcType=VARCHAR},
+      pro_desc = #{proDesc,jdbcType=VARCHAR},
+      norm_content = #{normContent,jdbcType=VARCHAR},
+      norm_key_value = #{normKeyValue,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_id = #{lastUpdateId,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      price = #{price,jdbcType=DECIMAL},
+      must_need_price = #{mustNeedPrice,jdbcType=INTEGER},
+      loos_pin_money = #{loosPinMoney,jdbcType=DECIMAL},
+      must_need_money = #{mustNeedMoney,jdbcType=INTEGER},
+      total_goldcoin = #{totalGoldcoin,jdbcType=DECIMAL},
+      must_need_goldcoin = #{mustNeedGoldcoin,jdbcType=INTEGER},
+      charity_coin = #{charityCoin,jdbcType=DECIMAL},
+      must_need_coin = #{mustNeedCoin,jdbcType=INTEGER},
+      post_price = #{postPrice,jdbcType=DECIMAL},
+      buy_count = #{buyCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

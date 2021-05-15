@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.kanke.store.IDao.MallProMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.kanke.store.domain.MallPro" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="merchant_id" property="merchantId" jdbcType="VARCHAR" />
+    <result column="short_title" property="shortTitle" jdbcType="VARCHAR" />
+    <result column="long_title" property="longTitle" jdbcType="VARCHAR" />
+    <result column="prefecture_id" property="prefectureId" jdbcType="INTEGER" />
+    <result column="pro_desc" property="proDesc" jdbcType="VARCHAR" />
+    <result column="logo_url" property="logoUrl" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="post_price" property="postPrice" jdbcType="DECIMAL" />
+    <result column="post_price_model" property="postPriceModel" jdbcType="INTEGER" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_update_id" property="lastUpdateId" jdbcType="VARCHAR" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="putaway_time" property="putawayTime" jdbcType="TIMESTAMP" />
+    <result column="anager_id" property="anagerId" jdbcType="VARCHAR" />
+    <result column="audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="delete_state" property="deleteState" jdbcType="INTEGER" />
+    <result column="pictures_show" property="picturesShow" jdbcType="VARCHAR" />
+    <result column="img_one" property="imgOne" jdbcType="VARCHAR" />
+    <result column="img_two" property="imgTwo" jdbcType="VARCHAR" />
+    <result column="img_three" property="imgThree" jdbcType="VARCHAR" />
+    <result column="img_four" property="imgFour" jdbcType="VARCHAR" />
+    <result column="img_five" property="imgFive" jdbcType="VARCHAR" />
+    <result column="synchronous" property="synchronous" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gy.kanke.store.domain.MallPro" extends="BaseResultMap" >
+    <result column="detail_content" property="detailContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, merchant_id, short_title, long_title, prefecture_id, pro_desc, logo_url, state, 
+    post_price, post_price_model, creator, create_time, last_update_id, last_update_time, 
+    putaway_time, anager_id, audit_time, delete_state, pictures_show, img_one, img_two, 
+    img_three, img_four, img_five, synchronous
+  </sql>
+  <sql id="Blob_Column_List" >
+    detail_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.gy.kanke.store.domain.MallProExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ks_mall_pro
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.kanke.store.domain.MallProExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ks_mall_pro
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ks_mall_pro
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ks_mall_pro
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.kanke.store.domain.MallProExample" >
+    delete from ks_mall_pro
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.kanke.store.domain.MallPro" >
+    insert into ks_mall_pro (id, merchant_id, short_title, 
+      long_title, prefecture_id, pro_desc, 
+      logo_url, state, post_price, 
+      post_price_model, creator, create_time, 
+      last_update_id, last_update_time, putaway_time, 
+      anager_id, audit_time, delete_state, 
+      pictures_show, img_one, img_two, 
+      img_three, img_four, img_five, 
+      synchronous, detail_content)
+    values (#{id,jdbcType=VARCHAR}, #{merchantId,jdbcType=VARCHAR}, #{shortTitle,jdbcType=VARCHAR}, 
+      #{longTitle,jdbcType=VARCHAR}, #{prefectureId,jdbcType=INTEGER}, #{proDesc,jdbcType=VARCHAR}, 
+      #{logoUrl,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{postPrice,jdbcType=DECIMAL}, 
+      #{postPriceModel,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateId,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{putawayTime,jdbcType=TIMESTAMP}, 
+      #{anagerId,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, #{deleteState,jdbcType=INTEGER}, 
+      #{picturesShow,jdbcType=VARCHAR}, #{imgOne,jdbcType=VARCHAR}, #{imgTwo,jdbcType=VARCHAR}, 
+      #{imgThree,jdbcType=VARCHAR}, #{imgFour,jdbcType=VARCHAR}, #{imgFive,jdbcType=VARCHAR}, 
+      #{synchronous,jdbcType=INTEGER}, #{detailContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.kanke.store.domain.MallPro" >
+    insert into ks_mall_pro
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="merchantId != null" >
+        merchant_id,
+      </if>
+      <if test="shortTitle != null" >
+        short_title,
+      </if>
+      <if test="longTitle != null" >
+        long_title,
+      </if>
+      <if test="prefectureId != null" >
+        prefecture_id,
+      </if>
+      <if test="proDesc != null" >
+        pro_desc,
+      </if>
+      <if test="logoUrl != null" >
+        logo_url,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="postPrice != null" >
+        post_price,
+      </if>
+      <if test="postPriceModel != null" >
+        post_price_model,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUpdateId != null" >
+        last_update_id,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="putawayTime != null" >
+        putaway_time,
+      </if>
+      <if test="anagerId != null" >
+        anager_id,
+      </if>
+      <if test="auditTime != null" >
+        audit_time,
+      </if>
+      <if test="deleteState != null" >
+        delete_state,
+      </if>
+      <if test="picturesShow != null" >
+        pictures_show,
+      </if>
+      <if test="imgOne != null" >
+        img_one,
+      </if>
+      <if test="imgTwo != null" >
+        img_two,
+      </if>
+      <if test="imgThree != null" >
+        img_three,
+      </if>
+      <if test="imgFour != null" >
+        img_four,
+      </if>
+      <if test="imgFive != null" >
+        img_five,
+      </if>
+      <if test="synchronous != null" >
+        synchronous,
+      </if>
+      <if test="detailContent != null" >
+        detail_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="shortTitle != null" >
+        #{shortTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="longTitle != null" >
+        #{longTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="prefectureId != null" >
+        #{prefectureId,jdbcType=INTEGER},
+      </if>
+      <if test="proDesc != null" >
+        #{proDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="logoUrl != null" >
+        #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="postPrice != null" >
+        #{postPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="postPriceModel != null" >
+        #{postPriceModel,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateId != null" >
+        #{lastUpdateId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="putawayTime != null" >
+        #{putawayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="anagerId != null" >
+        #{anagerId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteState != null" >
+        #{deleteState,jdbcType=INTEGER},
+      </if>
+      <if test="picturesShow != null" >
+        #{picturesShow,jdbcType=VARCHAR},
+      </if>
+      <if test="imgOne != null" >
+        #{imgOne,jdbcType=VARCHAR},
+      </if>
+      <if test="imgTwo != null" >
+        #{imgTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="imgThree != null" >
+        #{imgThree,jdbcType=VARCHAR},
+      </if>
+      <if test="imgFour != null" >
+        #{imgFour,jdbcType=VARCHAR},
+      </if>
+      <if test="imgFive != null" >
+        #{imgFive,jdbcType=VARCHAR},
+      </if>
+      <if test="synchronous != null" >
+        #{synchronous,jdbcType=INTEGER},
+      </if>
+      <if test="detailContent != null" >
+        #{detailContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.kanke.store.domain.MallProExample" resultType="java.lang.Integer" >
+    select count(*) from ks_mall_pro
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ks_mall_pro
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchantId != null" >
+        merchant_id = #{record.merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shortTitle != null" >
+        short_title = #{record.shortTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longTitle != null" >
+        long_title = #{record.longTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prefectureId != null" >
+        prefecture_id = #{record.prefectureId,jdbcType=INTEGER},
+      </if>
+      <if test="record.proDesc != null" >
+        pro_desc = #{record.proDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logoUrl != null" >
+        logo_url = #{record.logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.postPrice != null" >
+        post_price = #{record.postPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.postPriceModel != null" >
+        post_price_model = #{record.postPriceModel,jdbcType=INTEGER},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateId != null" >
+        last_update_id = #{record.lastUpdateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null" >
+        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.putawayTime != null" >
+        putaway_time = #{record.putawayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.anagerId != null" >
+        anager_id = #{record.anagerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditTime != null" >
+        audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleteState != null" >
+        delete_state = #{record.deleteState,jdbcType=INTEGER},
+      </if>
+      <if test="record.picturesShow != null" >
+        pictures_show = #{record.picturesShow,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgOne != null" >
+        img_one = #{record.imgOne,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgTwo != null" >
+        img_two = #{record.imgTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgThree != null" >
+        img_three = #{record.imgThree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgFour != null" >
+        img_four = #{record.imgFour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgFive != null" >
+        img_five = #{record.imgFive,jdbcType=VARCHAR},
+      </if>
+      <if test="record.synchronous != null" >
+        synchronous = #{record.synchronous,jdbcType=INTEGER},
+      </if>
+      <if test="record.detailContent != null" >
+        detail_content = #{record.detailContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update ks_mall_pro
+    set id = #{record.id,jdbcType=VARCHAR},
+      merchant_id = #{record.merchantId,jdbcType=VARCHAR},
+      short_title = #{record.shortTitle,jdbcType=VARCHAR},
+      long_title = #{record.longTitle,jdbcType=VARCHAR},
+      prefecture_id = #{record.prefectureId,jdbcType=INTEGER},
+      pro_desc = #{record.proDesc,jdbcType=VARCHAR},
+      logo_url = #{record.logoUrl,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      post_price = #{record.postPrice,jdbcType=DECIMAL},
+      post_price_model = #{record.postPriceModel,jdbcType=INTEGER},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      last_update_id = #{record.lastUpdateId,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      putaway_time = #{record.putawayTime,jdbcType=TIMESTAMP},
+      anager_id = #{record.anagerId,jdbcType=VARCHAR},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      delete_state = #{record.deleteState,jdbcType=INTEGER},
+      pictures_show = #{record.picturesShow,jdbcType=VARCHAR},
+      img_one = #{record.imgOne,jdbcType=VARCHAR},
+      img_two = #{record.imgTwo,jdbcType=VARCHAR},
+      img_three = #{record.imgThree,jdbcType=VARCHAR},
+      img_four = #{record.imgFour,jdbcType=VARCHAR},
+      img_five = #{record.imgFive,jdbcType=VARCHAR},
+      synchronous = #{record.synchronous,jdbcType=INTEGER},
+      detail_content = #{record.detailContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ks_mall_pro
+    set id = #{record.id,jdbcType=VARCHAR},
+      merchant_id = #{record.merchantId,jdbcType=VARCHAR},
+      short_title = #{record.shortTitle,jdbcType=VARCHAR},
+      long_title = #{record.longTitle,jdbcType=VARCHAR},
+      prefecture_id = #{record.prefectureId,jdbcType=INTEGER},
+      pro_desc = #{record.proDesc,jdbcType=VARCHAR},
+      logo_url = #{record.logoUrl,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      post_price = #{record.postPrice,jdbcType=DECIMAL},
+      post_price_model = #{record.postPriceModel,jdbcType=INTEGER},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      last_update_id = #{record.lastUpdateId,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      putaway_time = #{record.putawayTime,jdbcType=TIMESTAMP},
+      anager_id = #{record.anagerId,jdbcType=VARCHAR},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      delete_state = #{record.deleteState,jdbcType=INTEGER},
+      pictures_show = #{record.picturesShow,jdbcType=VARCHAR},
+      img_one = #{record.imgOne,jdbcType=VARCHAR},
+      img_two = #{record.imgTwo,jdbcType=VARCHAR},
+      img_three = #{record.imgThree,jdbcType=VARCHAR},
+      img_four = #{record.imgFour,jdbcType=VARCHAR},
+      img_five = #{record.imgFive,jdbcType=VARCHAR},
+      synchronous = #{record.synchronous,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.kanke.store.domain.MallPro" >
+    update ks_mall_pro
+    <set >
+      <if test="merchantId != null" >
+        merchant_id = #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="shortTitle != null" >
+        short_title = #{shortTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="longTitle != null" >
+        long_title = #{longTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="prefectureId != null" >
+        prefecture_id = #{prefectureId,jdbcType=INTEGER},
+      </if>
+      <if test="proDesc != null" >
+        pro_desc = #{proDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="logoUrl != null" >
+        logo_url = #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="postPrice != null" >
+        post_price = #{postPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="postPriceModel != null" >
+        post_price_model = #{postPriceModel,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateId != null" >
+        last_update_id = #{lastUpdateId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="putawayTime != null" >
+        putaway_time = #{putawayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="anagerId != null" >
+        anager_id = #{anagerId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteState != null" >
+        delete_state = #{deleteState,jdbcType=INTEGER},
+      </if>
+      <if test="picturesShow != null" >
+        pictures_show = #{picturesShow,jdbcType=VARCHAR},
+      </if>
+      <if test="imgOne != null" >
+        img_one = #{imgOne,jdbcType=VARCHAR},
+      </if>
+      <if test="imgTwo != null" >
+        img_two = #{imgTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="imgThree != null" >
+        img_three = #{imgThree,jdbcType=VARCHAR},
+      </if>
+      <if test="imgFour != null" >
+        img_four = #{imgFour,jdbcType=VARCHAR},
+      </if>
+      <if test="imgFive != null" >
+        img_five = #{imgFive,jdbcType=VARCHAR},
+      </if>
+      <if test="synchronous != null" >
+        synchronous = #{synchronous,jdbcType=INTEGER},
+      </if>
+      <if test="detailContent != null" >
+        detail_content = #{detailContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gy.kanke.store.domain.MallPro" >
+    update ks_mall_pro
+    set merchant_id = #{merchantId,jdbcType=VARCHAR},
+      short_title = #{shortTitle,jdbcType=VARCHAR},
+      long_title = #{longTitle,jdbcType=VARCHAR},
+      prefecture_id = #{prefectureId,jdbcType=INTEGER},
+      pro_desc = #{proDesc,jdbcType=VARCHAR},
+      logo_url = #{logoUrl,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      post_price = #{postPrice,jdbcType=DECIMAL},
+      post_price_model = #{postPriceModel,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_id = #{lastUpdateId,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      putaway_time = #{putawayTime,jdbcType=TIMESTAMP},
+      anager_id = #{anagerId,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      delete_state = #{deleteState,jdbcType=INTEGER},
+      pictures_show = #{picturesShow,jdbcType=VARCHAR},
+      img_one = #{imgOne,jdbcType=VARCHAR},
+      img_two = #{imgTwo,jdbcType=VARCHAR},
+      img_three = #{imgThree,jdbcType=VARCHAR},
+      img_four = #{imgFour,jdbcType=VARCHAR},
+      img_five = #{imgFive,jdbcType=VARCHAR},
+      synchronous = #{synchronous,jdbcType=INTEGER},
+      detail_content = #{detailContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.kanke.store.domain.MallPro" >
+    update ks_mall_pro
+    set merchant_id = #{merchantId,jdbcType=VARCHAR},
+      short_title = #{shortTitle,jdbcType=VARCHAR},
+      long_title = #{longTitle,jdbcType=VARCHAR},
+      prefecture_id = #{prefectureId,jdbcType=INTEGER},
+      pro_desc = #{proDesc,jdbcType=VARCHAR},
+      logo_url = #{logoUrl,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      post_price = #{postPrice,jdbcType=DECIMAL},
+      post_price_model = #{postPriceModel,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_id = #{lastUpdateId,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      putaway_time = #{putawayTime,jdbcType=TIMESTAMP},
+      anager_id = #{anagerId,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      delete_state = #{deleteState,jdbcType=INTEGER},
+      pictures_show = #{picturesShow,jdbcType=VARCHAR},
+      img_one = #{imgOne,jdbcType=VARCHAR},
+      img_two = #{imgTwo,jdbcType=VARCHAR},
+      img_three = #{imgThree,jdbcType=VARCHAR},
+      img_four = #{imgFour,jdbcType=VARCHAR},
+      img_five = #{imgFive,jdbcType=VARCHAR},
+      synchronous = #{synchronous,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

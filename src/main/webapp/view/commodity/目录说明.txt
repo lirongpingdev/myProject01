@@ -1,0 +1,3 @@
+/kk-store/src/main/webapp/view/commodity
+
+该目录为:商品模块

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.kanke.store.IDao.OrderManageMapper" >
+  
+  <select id="getOrderList" resultType="com.gy.kanke.store.dto.OrderDTO" parameterType="java.util.HashMap">
+		SELECT
+		od.account AS account,od.order_no AS orderNo,od.order_state AS orderState,od.send_goods_state
+		AS sendGoodsState,DATE_FORMAT(od.create_time, '%Y-%m-%d %H:%i:%S') AS memberCreateTimeStr,od.pay_state AS payState,py.price AS
+		price,py.post_price AS postPrice,DATE_FORMAT(py.pay_time, '%Y-%m-%d %H:%i:%S') AS payTimeStr, re.contact_name AS customerName,re.contact_phone_no AS
+		customerPhone
+		FROM ks_order od
+		INNER JOIN ks_order_product op on od.order_no=op.order_no
+		INNER JOIN ks_shop_info shop on shop.id=merchant_id
+		LEFT JOIN ks_order_pay py ON
+		od.order_no=py.order_no
+		LEFT JOIN ks_order_receive re on
+		od.order_no=re.order_no
+		where shop.account=#{account}
+		<if test="orderNo != null and orderNo!=''">
+			and od.order_no=#{orderNo}
+		</if>
+		<if test="customerName != null and customerName!=''">
+			<![CDATA[ and re.contact_name like '%%${customerName}%%']]>
+		</if>
+		<if test="orderState != null and orderState!=''">
+			and od.order_state=#{orderState}
+		</if>
+		<if test="payState != null and payState !=''">
+			and od.pay_state=#{payState}
+		</if>
+		<if test="sendGoodsState != null and sendGoodsState!=''">
+			and od.send_goods_state=#{sendGoodsState}
+		</if>
+		<if test="beginTime != null and beginTime != ''">
+			<![CDATA[ and od.create_time >= date_format(#{beginTime},'%Y-%m-%d %H:%i:%S') ]]>
+		</if>
+		<if test="endTime != null and endTime != ''">
+			<![CDATA[and od.create_time <= date_format(#{endTime},'%Y-%m-%d %H:%i:%S')]]>
+		</if>
+		order by od.create_time
+		limit #{limitStart} , #{limitEnd} 
+  	</select>
+  	
+  	<select id="getTranMoneyDetailsByOrder" resultType="com.gy.kanke.store.dto.TranMoneyDetailsDTO" parameterType="java.util.HashMap">
+		SELECT
+		od.account AS userId,od.order_no AS orderNo,od.order_state AS orderState,py.price AS
+		totalAmt,py.post_price AS postAmt,re.contact_name AS customerName,re.contact_phone_no AS	customerPhone
+		FROM ks_order od
+		LEFT JOIN ks_order_pay py ON
+		od.order_no=py.order_no
+		LEFT JOIN ks_order_receive re on
+		od.order_no=re.order_no
+		where od.send_goods_state=3
+		<if test="startDate != null and startDate != ''">
+			<![CDATA[ and od.create_time >= date_format(#{startDate},'%Y-%m-%d %H:%i:%S') ]]>
+		</if>
+		<if test="endDate != null and endDate != ''">
+			<![CDATA[and od.create_time <= date_format(#{endDate},'%Y-%m-%d %H:%i:%S')]]>
+		</if>
+  	</select>
+  	
+  	<update id="updateOrderInfo" parameterType="com.gy.kanke.store.domain.Order" >
+    	update ks_order set send_goods_state=#{sendGoodsState}
+	    	<if test="expressName != null and expressName!=''" >
+	        	,express_name = #{expressName,jdbcType=VARCHAR}
+	      	</if>
+    		<if test="expressNo != null and expressNo !=''" >
+	        	,express_no = #{expressNo,jdbcType=VARCHAR}
+	      	</if>
+    	 where order_no=#{orderNo,jdbcType=VARCHAR}
+    </update>
+  	
+	 <update id="updateConfirmSendGoodsState" parameterType="java.util.HashMap">
+		update ks_order set
+		send_goods_state=#{sendGoodsState,jdbcType=INTEGER},confirm_receive_time=NOW() where 1=1
+		<![CDATA[ and create_time <= date_format(#{nDateStr},'%Y-%m-%d %H:%i:%S') ]]>
+	</update>
+  
+</mapper>

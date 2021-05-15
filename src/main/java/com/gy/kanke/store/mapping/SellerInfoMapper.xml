@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.kanke.store.IDao.SellerInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.kanke.store.domain.SellerInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="license_no" property="licenseNo" jdbcType="VARCHAR" />
+    <result column="representative_name" property="representativeName" jdbcType="VARCHAR" />
+    <result column="idcard_no" property="idcardNo" jdbcType="VARCHAR" />
+    <result column="idcard_img1" property="idcardImg1" jdbcType="VARCHAR" />
+    <result column="idcard_img2" property="idcardImg2" jdbcType="VARCHAR" />
+    <result column="license_address" property="licenseAddress" jdbcType="VARCHAR" />
+    <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="islong_term" property="islongTerm" jdbcType="INTEGER" />
+    <result column="registered_capital" property="registeredCapital" jdbcType="DECIMAL" />
+    <result column="business_scope" property="businessScope" jdbcType="VARCHAR" />
+    <result column="license_img" property="licenseImg" jdbcType="VARCHAR" />
+    <result column="taxpayer_no" property="taxpayerNo" jdbcType="VARCHAR" />
+    <result column="tax_register_img" property="taxRegisterImg" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="bank_no" property="bankNo" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="account_license_img" property="accountLicenseImg" jdbcType="VARCHAR" />
+    <result column="billing_cycle" property="billingCycle" jdbcType="INTEGER" />
+    <result column="billing_type" property="billingType" jdbcType="INTEGER" />
+    <result column="contacts_name" property="contactsName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="reviewer" property="reviewer" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="not_pass_reason" property="notPassReason" jdbcType="VARCHAR" />
+    <result column="try_application_time" property="tryApplicationTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_update_by" property="lastUpdateBy" jdbcType="VARCHAR" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, account, company_name, license_no, representative_name, idcard_no, idcard_img1, 
+    idcard_img2, license_address, begin_time, end_time, islong_term, registered_capital, 
+    business_scope, license_img, taxpayer_no, tax_register_img, account_name, bank_no, 
+    bank_name, account_license_img, billing_cycle, billing_type, contacts_name, phone, 
+    email, reviewer, status, not_pass_reason, try_application_time, creator, create_time, 
+    last_update_by, last_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.kanke.store.domain.SellerInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ks_seller_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ks_seller_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ks_seller_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.kanke.store.domain.SellerInfoExample" >
+    delete from ks_seller_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.kanke.store.domain.SellerInfo" >
+    insert into ks_seller_info (id, account, company_name, 
+      license_no, representative_name, idcard_no, 
+      idcard_img1, idcard_img2, license_address, 
+      begin_time, end_time, islong_term, 
+      registered_capital, business_scope, license_img, 
+      taxpayer_no, tax_register_img, account_name, 
+      bank_no, bank_name, account_license_img, 
+      billing_cycle, billing_type, contacts_name, 
+      phone, email, reviewer, 
+      status, not_pass_reason, try_application_time, 
+      creator, create_time, last_update_by, 
+      last_update_time)
+    values (#{id,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{licenseNo,jdbcType=VARCHAR}, #{representativeName,jdbcType=VARCHAR}, #{idcardNo,jdbcType=VARCHAR}, 
+      #{idcardImg1,jdbcType=VARCHAR}, #{idcardImg2,jdbcType=VARCHAR}, #{licenseAddress,jdbcType=VARCHAR}, 
+      #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{islongTerm,jdbcType=INTEGER}, 
+      #{registeredCapital,jdbcType=DECIMAL}, #{businessScope,jdbcType=VARCHAR}, #{licenseImg,jdbcType=VARCHAR}, 
+      #{taxpayerNo,jdbcType=VARCHAR}, #{taxRegisterImg,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, 
+      #{bankNo,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{accountLicenseImg,jdbcType=VARCHAR}, 
+      #{billingCycle,jdbcType=INTEGER}, #{billingType,jdbcType=INTEGER}, #{contactsName,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{reviewer,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{notPassReason,jdbcType=VARCHAR}, #{tryApplicationTime,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateBy,jdbcType=VARCHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.kanke.store.domain.SellerInfo" >
+    insert into ks_seller_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="licenseNo != null" >
+        license_no,
+      </if>
+      <if test="representativeName != null" >
+        representative_name,
+      </if>
+      <if test="idcardNo != null" >
+        idcard_no,
+      </if>
+      <if test="idcardImg1 != null" >
+        idcard_img1,
+      </if>
+      <if test="idcardImg2 != null" >
+        idcard_img2,
+      </if>
+      <if test="licenseAddress != null" >
+        license_address,
+      </if>
+      <if test="beginTime != null" >
+        begin_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="islongTerm != null" >
+        islong_term,
+      </if>
+      <if test="registeredCapital != null" >
+        registered_capital,
+      </if>
+      <if test="businessScope != null" >
+        business_scope,
+      </if>
+      <if test="licenseImg != null" >
+        license_img,
+      </if>
+      <if test="taxpayerNo != null" >
+        taxpayer_no,
+      </if>
+      <if test="taxRegisterImg != null" >
+        tax_register_img,
+      </if>
+      <if test="accountName != null" >
+        account_name,
+      </if>
+      <if test="bankNo != null" >
+        bank_no,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="accountLicenseImg != null" >
+        account_license_img,
+      </if>
+      <if test="billingCycle != null" >
+        billing_cycle,
+      </if>
+      <if test="billingType != null" >
+        billing_type,
+      </if>
+      <if test="contactsName != null" >
+        contacts_name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="reviewer != null" >
+        reviewer,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="notPassReason != null" >
+        not_pass_reason,
+      </if>
+      <if test="tryApplicationTime != null" >
+        try_application_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUpdateBy != null" >
+        last_update_by,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseNo != null" >
+        #{licenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="representativeName != null" >
+        #{representativeName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardNo != null" >
+        #{idcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardImg1 != null" >
+        #{idcardImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardImg2 != null" >
+        #{idcardImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseAddress != null" >
+        #{licenseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="islongTerm != null" >
+        #{islongTerm,jdbcType=INTEGER},
+      </if>
+      <if test="registeredCapital != null" >
+        #{registeredCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="businessScope != null" >
+        #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseImg != null" >
+        #{licenseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="taxpayerNo != null" >
+        #{taxpayerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRegisterImg != null" >
+        #{taxRegisterImg,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNo != null" >
+        #{bankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountLicenseImg != null" >
+        #{accountLicenseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="billingCycle != null" >
+        #{billingCycle,jdbcType=INTEGER},
+      </if>
+      <if test="billingType != null" >
+        #{billingType,jdbcType=INTEGER},
+      </if>
+      <if test="contactsName != null" >
+        #{contactsName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewer != null" >
+        #{reviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="notPassReason != null" >
+        #{notPassReason,jdbcType=VARCHAR},
+      </if>
+      <if test="tryApplicationTime != null" >
+        #{tryApplicationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.kanke.store.domain.SellerInfoExample" resultType="java.lang.Integer" >
+    select count(*) from ks_seller_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ks_seller_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.account != null" >
+        account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licenseNo != null" >
+        license_no = #{record.licenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.representativeName != null" >
+        representative_name = #{record.representativeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardNo != null" >
+        idcard_no = #{record.idcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardImg1 != null" >
+        idcard_img1 = #{record.idcardImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardImg2 != null" >
+        idcard_img2 = #{record.idcardImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licenseAddress != null" >
+        license_address = #{record.licenseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginTime != null" >
+        begin_time = #{record.beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.islongTerm != null" >
+        islong_term = #{record.islongTerm,jdbcType=INTEGER},
+      </if>
+      <if test="record.registeredCapital != null" >
+        registered_capital = #{record.registeredCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="record.businessScope != null" >
+        business_scope = #{record.businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licenseImg != null" >
+        license_img = #{record.licenseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxpayerNo != null" >
+        taxpayer_no = #{record.taxpayerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxRegisterImg != null" >
+        tax_register_img = #{record.taxRegisterImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountName != null" >
+        account_name = #{record.accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankNo != null" >
+        bank_no = #{record.bankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankName != null" >
+        bank_name = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountLicenseImg != null" >
+        account_license_img = #{record.accountLicenseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billingCycle != null" >
+        billing_cycle = #{record.billingCycle,jdbcType=INTEGER},
+      </if>
+      <if test="record.billingType != null" >
+        billing_type = #{record.billingType,jdbcType=INTEGER},
+      </if>
+      <if test="record.contactsName != null" >
+        contacts_name = #{record.contactsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reviewer != null" >
+        reviewer = #{record.reviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.notPassReason != null" >
+        not_pass_reason = #{record.notPassReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tryApplicationTime != null" >
+        try_application_time = #{record.tryApplicationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateBy != null" >
+        last_update_by = #{record.lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null" >
+        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ks_seller_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      account = #{record.account,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      license_no = #{record.licenseNo,jdbcType=VARCHAR},
+      representative_name = #{record.representativeName,jdbcType=VARCHAR},
+      idcard_no = #{record.idcardNo,jdbcType=VARCHAR},
+      idcard_img1 = #{record.idcardImg1,jdbcType=VARCHAR},
+      idcard_img2 = #{record.idcardImg2,jdbcType=VARCHAR},
+      license_address = #{record.licenseAddress,jdbcType=VARCHAR},
+      begin_time = #{record.beginTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      islong_term = #{record.islongTerm,jdbcType=INTEGER},
+      registered_capital = #{record.registeredCapital,jdbcType=DECIMAL},
+      business_scope = #{record.businessScope,jdbcType=VARCHAR},
+      license_img = #{record.licenseImg,jdbcType=VARCHAR},
+      taxpayer_no = #{record.taxpayerNo,jdbcType=VARCHAR},
+      tax_register_img = #{record.taxRegisterImg,jdbcType=VARCHAR},
+      account_name = #{record.accountName,jdbcType=VARCHAR},
+      bank_no = #{record.bankNo,jdbcType=VARCHAR},
+      bank_name = #{record.bankName,jdbcType=VARCHAR},
+      account_license_img = #{record.accountLicenseImg,jdbcType=VARCHAR},
+      billing_cycle = #{record.billingCycle,jdbcType=INTEGER},
+      billing_type = #{record.billingType,jdbcType=INTEGER},
+      contacts_name = #{record.contactsName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      reviewer = #{record.reviewer,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      not_pass_reason = #{record.notPassReason,jdbcType=VARCHAR},
+      try_application_time = #{record.tryApplicationTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      last_update_by = #{record.lastUpdateBy,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.kanke.store.domain.SellerInfo" >
+    update ks_seller_info
+    <set >
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseNo != null" >
+        license_no = #{licenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="representativeName != null" >
+        representative_name = #{representativeName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardNo != null" >
+        idcard_no = #{idcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardImg1 != null" >
+        idcard_img1 = #{idcardImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardImg2 != null" >
+        idcard_img2 = #{idcardImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseAddress != null" >
+        license_address = #{licenseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="islongTerm != null" >
+        islong_term = #{islongTerm,jdbcType=INTEGER},
+      </if>
+      <if test="registeredCapital != null" >
+        registered_capital = #{registeredCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="businessScope != null" >
+        business_scope = #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseImg != null" >
+        license_img = #{licenseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="taxpayerNo != null" >
+        taxpayer_no = #{taxpayerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRegisterImg != null" >
+        tax_register_img = #{taxRegisterImg,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNo != null" >
+        bank_no = #{bankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountLicenseImg != null" >
+        account_license_img = #{accountLicenseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="billingCycle != null" >
+        billing_cycle = #{billingCycle,jdbcType=INTEGER},
+      </if>
+      <if test="billingType != null" >
+        billing_type = #{billingType,jdbcType=INTEGER},
+      </if>
+      <if test="contactsName != null" >
+        contacts_name = #{contactsName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewer != null" >
+        reviewer = #{reviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="notPassReason != null" >
+        not_pass_reason = #{notPassReason,jdbcType=VARCHAR},
+      </if>
+      <if test="tryApplicationTime != null" >
+        try_application_time = #{tryApplicationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.kanke.store.domain.SellerInfo" >
+    update ks_seller_info
+    set account = #{account,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      license_no = #{licenseNo,jdbcType=VARCHAR},
+      representative_name = #{representativeName,jdbcType=VARCHAR},
+      idcard_no = #{idcardNo,jdbcType=VARCHAR},
+      idcard_img1 = #{idcardImg1,jdbcType=VARCHAR},
+      idcard_img2 = #{idcardImg2,jdbcType=VARCHAR},
+      license_address = #{licenseAddress,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      islong_term = #{islongTerm,jdbcType=INTEGER},
+      registered_capital = #{registeredCapital,jdbcType=DECIMAL},
+      business_scope = #{businessScope,jdbcType=VARCHAR},
+      license_img = #{licenseImg,jdbcType=VARCHAR},
+      taxpayer_no = #{taxpayerNo,jdbcType=VARCHAR},
+      tax_register_img = #{taxRegisterImg,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      bank_no = #{bankNo,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      account_license_img = #{accountLicenseImg,jdbcType=VARCHAR},
+      billing_cycle = #{billingCycle,jdbcType=INTEGER},
+      billing_type = #{billingType,jdbcType=INTEGER},
+      contacts_name = #{contactsName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      reviewer = #{reviewer,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      not_pass_reason = #{notPassReason,jdbcType=VARCHAR},
+      try_application_time = #{tryApplicationTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
