@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+
+	<!-- 定时任务配置      开始 -->
+	<bean name="taskJob" class="com.gy.kanke.store.job.SysJob"/>
+
+	<bean id="createTranMoneyJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="taskJob" />
+		</property>
+		<property name="targetMethod">
+			<value>createTranMoney</value>
+		</property>
+	</bean>
+
+	<bean id="confirmSendGoodsStateJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="taskJob" />
+		</property>
+		<property name="targetMethod">
+			<value>confirmSendGoodsState</value>
+		</property>
+	</bean>
+	
+	<!-- 配置触发器时间 -->
+	<bean id="confirmSendGoodsStateTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="confirmSendGoodsStateJob" />
+		</property>
+		<!-- 定时时间 -->
+		<property name="cronExpression">
+		<!-- 每月1号凌晨过5分执行(规则:秒 分 时 日 月 年) -->
+		<value>0 5 0 1 * ?</value>
+		<!-- 每1秒跑一次 -->
+<!-- 		<value>*/5 * * * * ?</value> -->
+		<!-- 每1分钟跑一次 -->
+			<!-- <value>0 0/1 * * * ?</value> -->
+		</property>
+	</bean>
+
+	<bean id="createTranMoneyTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="createTranMoneyJob" />
+		</property>
+		<!-- 定时时间 -->
+		<property name="cronExpression">
+		<!-- 每月1号凌晨过5分执行(规则:秒 分 时 日 月 年) -->
+		<value>0 5 0 1 * ?</value>
+		<!-- 每1秒跑一次 -->
+<!-- 		<value>*/2 * * * * ?</value> -->
+		<!-- 每1分钟跑一次 -->
+			<!-- <value>0 0/1 * * * ?</value> -->
+		</property>
+	</bean>
+	
+	<!-- 添加触发器调度 -->
+	<bean
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		
+		<property name="triggers">
+			<list>
+				 <ref local="createTranMoneyTrigger" />
+				 <ref local="confirmSendGoodsStateTrigger" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

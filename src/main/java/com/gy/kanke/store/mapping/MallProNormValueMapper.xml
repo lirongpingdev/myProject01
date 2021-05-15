@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.kanke.store.IDao.MallProNormValueMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.kanke.store.domain.MallProNormValue" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="norm_id" property="normId" jdbcType="VARCHAR" />
+    <result column="norm_name" property="normName" jdbcType="VARCHAR" />
+    <result column="norm_value" property="normValue" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_update_id" property="lastUpdateId" jdbcType="VARCHAR" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, norm_id, norm_name, norm_value, sort, creator, create_time, last_update_id, last_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.kanke.store.domain.MallProNormValueExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ks_mall_pro_norm_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ks_mall_pro_norm_value
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ks_mall_pro_norm_value
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.kanke.store.domain.MallProNormValueExample" >
+    delete from ks_mall_pro_norm_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.kanke.store.domain.MallProNormValue" >
+    insert into ks_mall_pro_norm_value (id, norm_id, norm_name, 
+      norm_value, sort, creator, 
+      create_time, last_update_id, last_update_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{normId,jdbcType=VARCHAR}, #{normName,jdbcType=VARCHAR}, 
+      #{normValue,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateId,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.kanke.store.domain.MallProNormValue" >
+    insert into ks_mall_pro_norm_value
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="normId != null" >
+        norm_id,
+      </if>
+      <if test="normName != null" >
+        norm_name,
+      </if>
+      <if test="normValue != null" >
+        norm_value,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUpdateId != null" >
+        last_update_id,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="normId != null" >
+        #{normId,jdbcType=VARCHAR},
+      </if>
+      <if test="normName != null" >
+        #{normName,jdbcType=VARCHAR},
+      </if>
+      <if test="normValue != null" >
+        #{normValue,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateId != null" >
+        #{lastUpdateId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.kanke.store.domain.MallProNormValueExample" resultType="java.lang.Integer" >
+    select count(*) from ks_mall_pro_norm_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ks_mall_pro_norm_value
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.normId != null" >
+        norm_id = #{record.normId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.normName != null" >
+        norm_name = #{record.normName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.normValue != null" >
+        norm_value = #{record.normValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateId != null" >
+        last_update_id = #{record.lastUpdateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null" >
+        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ks_mall_pro_norm_value
+    set id = #{record.id,jdbcType=VARCHAR},
+      norm_id = #{record.normId,jdbcType=VARCHAR},
+      norm_name = #{record.normName,jdbcType=VARCHAR},
+      norm_value = #{record.normValue,jdbcType=VARCHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      last_update_id = #{record.lastUpdateId,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.kanke.store.domain.MallProNormValue" >
+    update ks_mall_pro_norm_value
+    <set >
+      <if test="normId != null" >
+        norm_id = #{normId,jdbcType=VARCHAR},
+      </if>
+      <if test="normName != null" >
+        norm_name = #{normName,jdbcType=VARCHAR},
+      </if>
+      <if test="normValue != null" >
+        norm_value = #{normValue,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateId != null" >
+        last_update_id = #{lastUpdateId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.kanke.store.domain.MallProNormValue" >
+    update ks_mall_pro_norm_value
+    set norm_id = #{normId,jdbcType=VARCHAR},
+      norm_name = #{normName,jdbcType=VARCHAR},
+      norm_value = #{normValue,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_id = #{lastUpdateId,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

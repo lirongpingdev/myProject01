@@ -1,0 +1,220 @@
+﻿@charset "UTF-8";
+body,dl,dd,dt,ul,p,pre,h1,h2,h3,h4,h5,h6,button,input,form,figure,ol,li{margin:0; padding:0; }
+html{font-size:20px;}
+body{font-family: "Microsoft Yahei",Helvetica,Arial,sans-serif; background:#f0f0f0; font-size:14px;color:#666; text-align: center;}
+ul,input,button{padding:0;}
+table{border-collapse:collapse;}
+ul{list-style:none;}
+img{border:none; vertical-align: middle;}
+a{text-decoration:none; outline:none; }
+input{ outline:none; /*-webkit-appearance:none;*/}
+em,b,i{ font-weight:normal; font-size:14px; font-style:normal;}
+html, div, p, h1, h2, h3, h4, h5, h6, blockquote,
+ol, ul, li, dl, dt, dd, 
+form, fieldset, legend, button, input, textarea, 
+pre, code, th, td, span, a, em, i{margin:0;padding:0;-webkit-text-size-adjust : none; -moz-text-size-adjust : none; -ms-text-size-adjust : none; text-size-adjust : none;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+a{ color:#919191;}
+
+/* clear float */
+.clearfix:after{clear:both;display:block;visibility:hidden;font-size:0;content:" ";height:0;}
+.clearfix{zoom:1;}
+input,select { vertical-align: middle; outline:none;}
+.img{width:100%;height:auto;display:block;}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+
+.page_box{
+	width:1185px;
+	margin:0 auto;
+	text-align: left;
+}
+.header{
+	height:90px;
+	width:100%;
+	background: #fff;
+	border-bottom:1px solid #e5e5e5;
+}
+.logo{
+	padding-top:20px;
+	float: left;
+	width:30%;
+}
+.login_header_txt{
+	float:left;
+	width:70%;
+	padding-top:30px;
+	text-align: right;
+}
+.login_header_txt span{
+	padding:0 5px;
+}
+
+/*侧边栏导航*/
+.aside{
+	width:198px;
+	border:1px solid #e5e5e5;
+	float: left;
+	min-height:500px;
+	padding-bottom:15px;
+	background: #fff;
+	margin:15px 15px 0 0;
+}
+
+.index{
+	font-weight: bold;
+    height: 48px;
+    line-height: 48px;
+}
+.index a{
+	color:#666;
+}
+.index span{
+	padding-left:15px;
+}
+.aside dt{
+	font-weight:bold;
+	padding-left:15px;
+	margin:15px 0;
+	cursor: pointer;
+}
+.aside dd{
+	height:45px;
+	line-height: 45px;
+}
+.aside i{
+	font-style: normal;
+	display: inline-block;
+	height:14px;
+	width:14px;
+	padding-right: 5px;
+	overflow: hidden;
+	vertical-align: middle;
+	background:url(../images/icon.png) no-repeat;
+
+}
+.aside i.icon001{
+	background-position:-5px -25px; 
+}
+.aside i.icon001_on{
+	background-position:-26px -25px; 
+}
+.aside i.icon002{
+	background-position:-6px -114px; 
+}
+.aside i.icon002_on{
+	background-position:-26px -114px;
+}
+.aside i.icon003{
+	background-position:-8px -204px; 
+}
+.aside i.icon003_on{
+	background-position:-27px -204px; 
+}
+.aside i.icon004{
+	background-position:-5px -161px; 
+}
+.aside i.icon004_on{
+	background-position:-26px -161px; 
+}
+.aside i.icon005{
+	background-position:-5px -139px; 
+}
+.aside i.icon005_on{
+	background-position:-26px -139px; 
+}
+.aside i.icon006{
+	background-position:-5px -89px; 
+}
+.aside i.icon006_on{
+	background-position:-26px -89px; 
+}
+.aside i.icon007{
+	background-position:-5px -5px; 
+}
+.aside i.icon007_on{
+	background-position:-26px -5px; 
+}
+.aside i.icon008{
+	background-position:-5px -48px; 
+}
+.aside i.icon008_on{
+	background-position:-26px -48px; 
+}
+.aside i.icon009{
+	background-position:-8px -226px; 
+}
+.aside i.icon009_on{
+	background-position:-26px -226px; 
+}
+.aside i.icon010{
+	background-position:-5px -67px; 
+}
+.aside i.icon010_on{
+	background-position:-26px -67px; 
+}
+.aside i.icon011{
+	background-position:-7px -183px; 
+}
+.aside i.icon011_on{
+	background-position:-26px -183px; 
+}
+.aside i.icon012{
+	background-position:-9px -245px; 
+}
+.aside i.icon012_on{
+	background-position:-28px -246px; 
+}
+.aside dd p{
+	padding-left:30px;
+}
+.aside dd.aside_cur,.index.aside_cur{
+	width:196px;
+	background:#ffefe6;
+	border-left:2px solid #ff6600;
+}
+.aside dd.aside_cur a,.index.aside_cur a{
+	color:#ff6600;
+}
+/*面包屑*/
+.place{
+	height:45px;
+	line-height:45px;
+	padding-left:15px;
+}
+
+.index_on,.yellow{
+	color:#ff6600;
+}
+/*右边栏主体*/
+.main{
+	width:968px;
+	border:1px solid #e5e5e5;
+	min-height:500px;
+	float: left;
+	margin-top:15px;
+	background: #fff;
+	padding-bottom:15px;
+}
+/*页脚*/
+.pos{
+	position: absolute;
+	left:0;
+	right:0;
+	bottom:0;}
+.footer{
+	height:100px;
+	width:100%;
+	color:#fff;
+	text-align: center;
+	background: #333;
+}
+.copyright{
+	padding-top:30px;
+}
+.copyright p{
+	margin-top:5px;
+}

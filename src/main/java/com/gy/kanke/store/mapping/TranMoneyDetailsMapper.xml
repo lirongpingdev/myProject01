@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.kanke.store.IDao.TranMoneyDetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.kanke.store.domain.TranMoneyDetails" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="accout_no" property="accoutNo" jdbcType="VARCHAR" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="total_amt" property="totalAmt" jdbcType="DECIMAL" />
+    <result column="post_amt" property="postAmt" jdbcType="DECIMAL" />
+    <result column="real_amt" property="realAmt" jdbcType="DECIMAL" />
+    <result column="order_state" property="orderState" jdbcType="INTEGER" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="customer_phone" property="customerPhone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_no, accout_no, order_time, total_amt, post_amt, real_amt, order_state, 
+    customer_name, customer_phone
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.kanke.store.domain.TranMoneyDetailsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ks_tran_money_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ks_tran_money_details
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ks_tran_money_details
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.kanke.store.domain.TranMoneyDetailsExample" >
+    delete from ks_tran_money_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.kanke.store.domain.TranMoneyDetails" >
+    insert into ks_tran_money_details (id, order_no, accout_no, 
+      order_time, total_amt, post_amt, 
+      real_amt, order_state, customer_name, 
+      customer_phone)
+    values (#{id,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{accoutNo,jdbcType=VARCHAR}, 
+      #{orderTime,jdbcType=TIMESTAMP}, #{totalAmt,jdbcType=DECIMAL}, #{postAmt,jdbcType=DECIMAL}, 
+      #{realAmt,jdbcType=DECIMAL}, #{orderState,jdbcType=INTEGER}, #{customerName,jdbcType=VARCHAR}, 
+      #{customerPhone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.kanke.store.domain.TranMoneyDetails" >
+    insert into ks_tran_money_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="accoutNo != null" >
+        accout_no,
+      </if>
+      <if test="orderTime != null" >
+        order_time,
+      </if>
+      <if test="totalAmt != null" >
+        total_amt,
+      </if>
+      <if test="postAmt != null" >
+        post_amt,
+      </if>
+      <if test="realAmt != null" >
+        real_amt,
+      </if>
+      <if test="orderState != null" >
+        order_state,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="customerPhone != null" >
+        customer_phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accoutNo != null" >
+        #{accoutNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalAmt != null" >
+        #{totalAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="postAmt != null" >
+        #{postAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="realAmt != null" >
+        #{realAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="orderState != null" >
+        #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null" >
+        #{customerPhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.kanke.store.domain.TranMoneyDetailsExample" resultType="java.lang.Integer" >
+    select count(*) from ks_tran_money_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ks_tran_money_details
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null" >
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accoutNo != null" >
+        accout_no = #{record.accoutNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderTime != null" >
+        order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.totalAmt != null" >
+        total_amt = #{record.totalAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.postAmt != null" >
+        post_amt = #{record.postAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.realAmt != null" >
+        real_amt = #{record.realAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderState != null" >
+        order_state = #{record.orderState,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerName != null" >
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerPhone != null" >
+        customer_phone = #{record.customerPhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ks_tran_money_details
+    set id = #{record.id,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      accout_no = #{record.accoutNo,jdbcType=VARCHAR},
+      order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      total_amt = #{record.totalAmt,jdbcType=DECIMAL},
+      post_amt = #{record.postAmt,jdbcType=DECIMAL},
+      real_amt = #{record.realAmt,jdbcType=DECIMAL},
+      order_state = #{record.orderState,jdbcType=INTEGER},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      customer_phone = #{record.customerPhone,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.kanke.store.domain.TranMoneyDetails" >
+    update ks_tran_money_details
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accoutNo != null" >
+        accout_no = #{accoutNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalAmt != null" >
+        total_amt = #{totalAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="postAmt != null" >
+        post_amt = #{postAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="realAmt != null" >
+        real_amt = #{realAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="orderState != null" >
+        order_state = #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null" >
+        customer_phone = #{customerPhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.kanke.store.domain.TranMoneyDetails" >
+    update ks_tran_money_details
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      accout_no = #{accoutNo,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      total_amt = #{totalAmt,jdbcType=DECIMAL},
+      post_amt = #{postAmt,jdbcType=DECIMAL},
+      real_amt = #{realAmt,jdbcType=DECIMAL},
+      order_state = #{orderState,jdbcType=INTEGER},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_phone = #{customerPhone,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

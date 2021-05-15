@@ -1,0 +1,3 @@
+/kk-store/src/main/webapp/view/include
+
+该目录为:公共菜单jsp页面

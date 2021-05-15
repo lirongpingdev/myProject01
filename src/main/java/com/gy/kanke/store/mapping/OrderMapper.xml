@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.kanke.store.IDao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.kanke.store.domain.Order" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="parent_order_no" property="parentOrderNo" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="express_name" property="expressName" jdbcType="VARCHAR" />
+    <result column="express_no" property="expressNo" jdbcType="VARCHAR" />
+    <result column="order_state" property="orderState" jdbcType="INTEGER" />
+    <result column="send_goods_state" property="sendGoodsState" jdbcType="INTEGER" />
+    <result column="confirm_send_goods_state" property="confirmSendGoodsState" jdbcType="INTEGER" />
+    <result column="pay_state" property="payState" jdbcType="INTEGER" />
+    <result column="pay_type" property="payType" jdbcType="INTEGER" />
+    <result column="evaluate_state" property="evaluateState" jdbcType="INTEGER" />
+    <result column="evaluate_type" property="evaluateType" jdbcType="INTEGER" />
+    <result column="trans_no" property="transNo" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_update_id" property="lastUpdateId" jdbcType="VARCHAR" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="confirm_receive_time" property="confirmReceiveTime" jdbcType="TIMESTAMP" />
+    <result column="member_create_time" property="memberCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, account, parent_order_no, order_no, express_name, express_no, order_state, send_goods_state, 
+    confirm_send_goods_state, pay_state, pay_type, evaluate_state, evaluate_type, trans_no, 
+    creator, create_time, last_update_id, last_update_time, confirm_receive_time, member_create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.kanke.store.domain.OrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ks_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ks_order
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ks_order
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.kanke.store.domain.OrderExample" >
+    delete from ks_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.kanke.store.domain.Order" >
+    insert into ks_order (id, account, parent_order_no, 
+      order_no, express_name, express_no, 
+      order_state, send_goods_state, confirm_send_goods_state, 
+      pay_state, pay_type, evaluate_state, 
+      evaluate_type, trans_no, creator, 
+      create_time, last_update_id, last_update_time, 
+      confirm_receive_time, member_create_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{parentOrderNo,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{expressName,jdbcType=VARCHAR}, #{expressNo,jdbcType=VARCHAR}, 
+      #{orderState,jdbcType=INTEGER}, #{sendGoodsState,jdbcType=INTEGER}, #{confirmSendGoodsState,jdbcType=INTEGER}, 
+      #{payState,jdbcType=INTEGER}, #{payType,jdbcType=INTEGER}, #{evaluateState,jdbcType=INTEGER}, 
+      #{evaluateType,jdbcType=INTEGER}, #{transNo,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateId,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{confirmReceiveTime,jdbcType=TIMESTAMP}, #{memberCreateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.kanke.store.domain.Order" >
+    insert into ks_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="parentOrderNo != null" >
+        parent_order_no,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="expressName != null" >
+        express_name,
+      </if>
+      <if test="expressNo != null" >
+        express_no,
+      </if>
+      <if test="orderState != null" >
+        order_state,
+      </if>
+      <if test="sendGoodsState != null" >
+        send_goods_state,
+      </if>
+      <if test="confirmSendGoodsState != null" >
+        confirm_send_goods_state,
+      </if>
+      <if test="payState != null" >
+        pay_state,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="evaluateState != null" >
+        evaluate_state,
+      </if>
+      <if test="evaluateType != null" >
+        evaluate_type,
+      </if>
+      <if test="transNo != null" >
+        trans_no,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUpdateId != null" >
+        last_update_id,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="confirmReceiveTime != null" >
+        confirm_receive_time,
+      </if>
+      <if test="memberCreateTime != null" >
+        member_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="parentOrderNo != null" >
+        #{parentOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="expressName != null" >
+        #{expressName,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null" >
+        #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null" >
+        #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="sendGoodsState != null" >
+        #{sendGoodsState,jdbcType=INTEGER},
+      </if>
+      <if test="confirmSendGoodsState != null" >
+        #{confirmSendGoodsState,jdbcType=INTEGER},
+      </if>
+      <if test="payState != null" >
+        #{payState,jdbcType=INTEGER},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateState != null" >
+        #{evaluateState,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateType != null" >
+        #{evaluateType,jdbcType=INTEGER},
+      </if>
+      <if test="transNo != null" >
+        #{transNo,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateId != null" >
+        #{lastUpdateId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmReceiveTime != null" >
+        #{confirmReceiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberCreateTime != null" >
+        #{memberCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.kanke.store.domain.OrderExample" resultType="java.lang.Integer" >
+    select count(*) from ks_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ks_order
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.account != null" >
+        account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentOrderNo != null" >
+        parent_order_no = #{record.parentOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null" >
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expressName != null" >
+        express_name = #{record.expressName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expressNo != null" >
+        express_no = #{record.expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderState != null" >
+        order_state = #{record.orderState,jdbcType=INTEGER},
+      </if>
+      <if test="record.sendGoodsState != null" >
+        send_goods_state = #{record.sendGoodsState,jdbcType=INTEGER},
+      </if>
+      <if test="record.confirmSendGoodsState != null" >
+        confirm_send_goods_state = #{record.confirmSendGoodsState,jdbcType=INTEGER},
+      </if>
+      <if test="record.payState != null" >
+        pay_state = #{record.payState,jdbcType=INTEGER},
+      </if>
+      <if test="record.payType != null" >
+        pay_type = #{record.payType,jdbcType=INTEGER},
+      </if>
+      <if test="record.evaluateState != null" >
+        evaluate_state = #{record.evaluateState,jdbcType=INTEGER},
+      </if>
+      <if test="record.evaluateType != null" >
+        evaluate_type = #{record.evaluateType,jdbcType=INTEGER},
+      </if>
+      <if test="record.transNo != null" >
+        trans_no = #{record.transNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateId != null" >
+        last_update_id = #{record.lastUpdateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null" >
+        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.confirmReceiveTime != null" >
+        confirm_receive_time = #{record.confirmReceiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.memberCreateTime != null" >
+        member_create_time = #{record.memberCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ks_order
+    set id = #{record.id,jdbcType=VARCHAR},
+      account = #{record.account,jdbcType=VARCHAR},
+      parent_order_no = #{record.parentOrderNo,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      express_name = #{record.expressName,jdbcType=VARCHAR},
+      express_no = #{record.expressNo,jdbcType=VARCHAR},
+      order_state = #{record.orderState,jdbcType=INTEGER},
+      send_goods_state = #{record.sendGoodsState,jdbcType=INTEGER},
+      confirm_send_goods_state = #{record.confirmSendGoodsState,jdbcType=INTEGER},
+      pay_state = #{record.payState,jdbcType=INTEGER},
+      pay_type = #{record.payType,jdbcType=INTEGER},
+      evaluate_state = #{record.evaluateState,jdbcType=INTEGER},
+      evaluate_type = #{record.evaluateType,jdbcType=INTEGER},
+      trans_no = #{record.transNo,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      last_update_id = #{record.lastUpdateId,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      confirm_receive_time = #{record.confirmReceiveTime,jdbcType=TIMESTAMP},
+      member_create_time = #{record.memberCreateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.kanke.store.domain.Order" >
+    update ks_order
+    <set >
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="parentOrderNo != null" >
+        parent_order_no = #{parentOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="expressName != null" >
+        express_name = #{expressName,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null" >
+        express_no = #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null" >
+        order_state = #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="sendGoodsState != null" >
+        send_goods_state = #{sendGoodsState,jdbcType=INTEGER},
+      </if>
+      <if test="confirmSendGoodsState != null" >
+        confirm_send_goods_state = #{confirmSendGoodsState,jdbcType=INTEGER},
+      </if>
+      <if test="payState != null" >
+        pay_state = #{payState,jdbcType=INTEGER},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateState != null" >
+        evaluate_state = #{evaluateState,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateType != null" >
+        evaluate_type = #{evaluateType,jdbcType=INTEGER},
+      </if>
+      <if test="transNo != null" >
+        trans_no = #{transNo,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateId != null" >
+        last_update_id = #{lastUpdateId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmReceiveTime != null" >
+        confirm_receive_time = #{confirmReceiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberCreateTime != null" >
+        member_create_time = #{memberCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.kanke.store.domain.Order" >
+    update ks_order
+    set account = #{account,jdbcType=VARCHAR},
+      parent_order_no = #{parentOrderNo,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      express_name = #{expressName,jdbcType=VARCHAR},
+      express_no = #{expressNo,jdbcType=VARCHAR},
+      order_state = #{orderState,jdbcType=INTEGER},
+      send_goods_state = #{sendGoodsState,jdbcType=INTEGER},
+      confirm_send_goods_state = #{confirmSendGoodsState,jdbcType=INTEGER},
+      pay_state = #{payState,jdbcType=INTEGER},
+      pay_type = #{payType,jdbcType=INTEGER},
+      evaluate_state = #{evaluateState,jdbcType=INTEGER},
+      evaluate_type = #{evaluateType,jdbcType=INTEGER},
+      trans_no = #{transNo,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_id = #{lastUpdateId,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      confirm_receive_time = #{confirmReceiveTime,jdbcType=TIMESTAMP},
+      member_create_time = #{memberCreateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

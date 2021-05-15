@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.kanke.store.IDao.OrderReceiveMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.kanke.store.domain.OrderReceive" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="district_id" property="districtId" jdbcType="INTEGER" />
+    <result column="district_name" property="districtName" jdbcType="VARCHAR" />
+    <result column="detail_address" property="detailAddress" jdbcType="VARCHAR" />
+    <result column="postal_code" property="postalCode" jdbcType="VARCHAR" />
+    <result column="contact_name" property="contactName" jdbcType="VARCHAR" />
+    <result column="contact_phone_no" property="contactPhoneNo" jdbcType="VARCHAR" />
+    <result column="contact_tel_no" property="contactTelNo" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_update_id" property="lastUpdateId" jdbcType="VARCHAR" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_no, goods_id, user_id, province_id, province_name, city_id, city_name, 
+    district_id, district_name, detail_address, postal_code, contact_name, contact_phone_no, 
+    contact_tel_no, state, creator, create_time, last_update_id, last_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.kanke.store.domain.OrderReceiveExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ks_order_receive
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ks_order_receive
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ks_order_receive
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.kanke.store.domain.OrderReceiveExample" >
+    delete from ks_order_receive
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.kanke.store.domain.OrderReceive" >
+    insert into ks_order_receive (id, order_no, goods_id, 
+      user_id, province_id, province_name, 
+      city_id, city_name, district_id, 
+      district_name, detail_address, postal_code, 
+      contact_name, contact_phone_no, contact_tel_no, 
+      state, creator, create_time, 
+      last_update_id, last_update_time)
+    values (#{id,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=BIGINT}, #{provinceId,jdbcType=INTEGER}, #{provinceName,jdbcType=VARCHAR}, 
+      #{cityId,jdbcType=INTEGER}, #{cityName,jdbcType=VARCHAR}, #{districtId,jdbcType=INTEGER}, 
+      #{districtName,jdbcType=VARCHAR}, #{detailAddress,jdbcType=VARCHAR}, #{postalCode,jdbcType=VARCHAR}, 
+      #{contactName,jdbcType=VARCHAR}, #{contactPhoneNo,jdbcType=VARCHAR}, #{contactTelNo,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateId,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.kanke.store.domain.OrderReceive" >
+    insert into ks_order_receive
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="provinceName != null" >
+        province_name,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="districtId != null" >
+        district_id,
+      </if>
+      <if test="districtName != null" >
+        district_name,
+      </if>
+      <if test="detailAddress != null" >
+        detail_address,
+      </if>
+      <if test="postalCode != null" >
+        postal_code,
+      </if>
+      <if test="contactName != null" >
+        contact_name,
+      </if>
+      <if test="contactPhoneNo != null" >
+        contact_phone_no,
+      </if>
+      <if test="contactTelNo != null" >
+        contact_tel_no,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUpdateId != null" >
+        last_update_id,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceName != null" >
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null" >
+        #{districtId,jdbcType=INTEGER},
+      </if>
+      <if test="districtName != null" >
+        #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAddress != null" >
+        #{detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="postalCode != null" >
+        #{postalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contactName != null" >
+        #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhoneNo != null" >
+        #{contactPhoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTelNo != null" >
+        #{contactTelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateId != null" >
+        #{lastUpdateId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.kanke.store.domain.OrderReceiveExample" resultType="java.lang.Integer" >
+    select count(*) from ks_order_receive
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ks_order_receive
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null" >
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.provinceId != null" >
+        province_id = #{record.provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.provinceName != null" >
+        province_name = #{record.provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityId != null" >
+        city_id = #{record.cityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityName != null" >
+        city_name = #{record.cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.districtId != null" >
+        district_id = #{record.districtId,jdbcType=INTEGER},
+      </if>
+      <if test="record.districtName != null" >
+        district_name = #{record.districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailAddress != null" >
+        detail_address = #{record.detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postalCode != null" >
+        postal_code = #{record.postalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactName != null" >
+        contact_name = #{record.contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactPhoneNo != null" >
+        contact_phone_no = #{record.contactPhoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactTelNo != null" >
+        contact_tel_no = #{record.contactTelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateId != null" >
+        last_update_id = #{record.lastUpdateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null" >
+        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ks_order_receive
+    set id = #{record.id,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      province_id = #{record.provinceId,jdbcType=INTEGER},
+      province_name = #{record.provinceName,jdbcType=VARCHAR},
+      city_id = #{record.cityId,jdbcType=INTEGER},
+      city_name = #{record.cityName,jdbcType=VARCHAR},
+      district_id = #{record.districtId,jdbcType=INTEGER},
+      district_name = #{record.districtName,jdbcType=VARCHAR},
+      detail_address = #{record.detailAddress,jdbcType=VARCHAR},
+      postal_code = #{record.postalCode,jdbcType=VARCHAR},
+      contact_name = #{record.contactName,jdbcType=VARCHAR},
+      contact_phone_no = #{record.contactPhoneNo,jdbcType=VARCHAR},
+      contact_tel_no = #{record.contactTelNo,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      last_update_id = #{record.lastUpdateId,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.kanke.store.domain.OrderReceive" >
+    update ks_order_receive
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceName != null" >
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null" >
+        district_id = #{districtId,jdbcType=INTEGER},
+      </if>
+      <if test="districtName != null" >
+        district_name = #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAddress != null" >
+        detail_address = #{detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="postalCode != null" >
+        postal_code = #{postalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contactName != null" >
+        contact_name = #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhoneNo != null" >
+        contact_phone_no = #{contactPhoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTelNo != null" >
+        contact_tel_no = #{contactTelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateId != null" >
+        last_update_id = #{lastUpdateId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.kanke.store.domain.OrderReceive" >
+    update ks_order_receive
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=INTEGER},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      district_id = #{districtId,jdbcType=INTEGER},
+      district_name = #{districtName,jdbcType=VARCHAR},
+      detail_address = #{detailAddress,jdbcType=VARCHAR},
+      postal_code = #{postalCode,jdbcType=VARCHAR},
+      contact_name = #{contactName,jdbcType=VARCHAR},
+      contact_phone_no = #{contactPhoneNo,jdbcType=VARCHAR},
+      contact_tel_no = #{contactTelNo,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_id = #{lastUpdateId,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
