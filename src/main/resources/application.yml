@@ -1,0 +1,22 @@
+server:
+  port: 8033
+
+
+spring:
+  elasticsearch:
+    rest:
+      uris: 192.168.1.102:9200
+
+data:
+  elasticsearch:
+    cluster-nodes: 192.168.1.102:9200
+    cluster-name: elasticsearch
+
+management:
+  health:
+    elasticsearch:
+      enabled: false
+
+
+
+
