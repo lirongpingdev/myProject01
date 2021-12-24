@@ -17,6 +17,10 @@ public class UserService {
         System.out.println("------Before save-----user="+new Gson().toJson(user));
         User save = userRepository.save(user);
         System.out.println("------After save-----user="+new Gson().toJson(save));
+
+
+         //test commit;
+
         return new Gson().toJson(save);
     }
 
