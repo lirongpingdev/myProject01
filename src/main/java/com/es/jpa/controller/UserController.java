@@ -39,7 +39,6 @@ public class UserController {
     public String addUser(@RequestBody User user) {
         String resultStr = "";
         try {
-
             String jsonStr = new Gson().toJson(user);
             System.out.println("------jsonStr="+jsonStr);
             resultStr = userService.addUser(jsonStr);
