@@ -16,7 +16,7 @@ public class UserService {
     public String addUser(User user){
         System.out.println("------Before save-----user="+new Gson().toJson(user));
         User save = userRepository.save(user);
-        System.out.println("------After save111111122222222222TG1001-----user="+new Gson().toJson(save));
+        System.out.println("------After save111111122222222222TG1001tg22-----user="+new Gson().toJson(save));
 
 
          //test commit;

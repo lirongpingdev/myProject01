@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/add/{id}")
     public String addUser(@PathVariable String id) {
-        String resultStr = "TG";
+        String resultStr = "TG22";
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String createTime = formatter.format(new Date());
